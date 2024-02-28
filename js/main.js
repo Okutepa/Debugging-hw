@@ -15,6 +15,8 @@ let theButtons = document.querySelectorAll("#buttonHolder img"),
 	// because we need it in the handleDrop function
 	draggedPiece;
 
+let resetButton = document.querySelector("#resetBut");
+
 // step 3
 // functionality always goes in the middle -> how do we want
 // the app to behave?
@@ -26,6 +28,9 @@ function changeBGImage() {
 
 	// bug fix #2 should go here. it's at most 3 lines of JS code.
 	puzzleBoard.style.backgroundImage = `url(images/backGround${this.id}.jpg)`;
+
+	// Reset the puzzle board by moving all pieces back to the puzzle pieces container
+    resetPuzzleBoard();
 }
 
 function handleStartDrag() { 
@@ -41,18 +46,28 @@ function handleDragOver(e) {
 	console.log('dragged over me'); 
 }
 
-function handleDrop(e) { 
-	e.preventDefault();
-	console.log('dropped something on me');
-	// bug fix #1 should go here, and it's at most 3 lines of JS code
-	if (this.children.length > 0) {
-	// Move the existing piece back to the puzzle pieces container
-	puzzleBoard.appendChild(this.children[0]);
-	}
-	// this line is going to move the dragged piece from the left side of the board
-	// into whatever drop zone we choose. appendChild means "add element to the container"
-	this.appendChild(draggedPiece);
+function handleDrop(e) {
+    e.preventDefault();
+    console.log('dropped something on me');
+
+    // Check if the drop zone already contains a piece
+    if (this.children.length > 0) {
+        // Move the existing piece back to the puzzle pieces container
+        puzzleBoard.appendChild(this.children[0]);
+    }
+
+    // Move the dragged piece into the drop zone
+    this.appendChild(draggedPiece);
 }
+
+function resetPuzzleBoard() {
+    // Move all pieces back to the puzzle pieces container
+    puzzlePieces.forEach(piece => puzzleBoard.appendChild(piece));
+
+	// Repopulate the puzzle pieces zone
+    puzzlePieces.forEach(piece => document.querySelector(".puzzle-pieces").appendChild(piece));
+}
+
 // step 2
 // event handling always goes at the bottom => 
 // how do we want users to interact with our app
@@ -72,3 +87,5 @@ dropZones.forEach(zone => zone.addEventListener("dragover", handleDragOver));
 
 // add the drop event handling
 dropZones.forEach(zone => zone.addEventListener("drop", handleDrop));
+
+resetButton.addEventListener("click", resetPuzzleBoard);

@@ -19,7 +19,7 @@ let theButtons = document.querySelectorAll("#buttonHolder img"),
 // functionality always goes in the middle -> how do we want
 // the app to behave?
 function changeBGImage() {
-	// the `` is a JavaScript template string. It tells the JS enging to evaluate the expression
+	// the `` is a JavaScript template string. It tells the JS engine to evaluate the expression
 	// inside the braces - run that little bit of code. In this case it's just pulling the ID of the
 	// button we clicked on and putting it at the end of the image name (0, 1, 2, 3)
 	// and updating the background-image style of the puzzle board element.
@@ -45,7 +45,10 @@ function handleDrop(e) {
 	e.preventDefault();
 	console.log('dropped something on me');
 	// bug fix #1 should go here, and it's at most 3 lines of JS code
-
+	if (this.children.length > 0) {
+	// Move the existing piece back to the puzzle pieces container
+	puzzleBoard.appendChild(this.children[0]);
+	}
 	// this line is going to move the dragged piece from the left side of the board
 	// into whatever drop zone we choose. appendChild means "add element to the container"
 	this.appendChild(draggedPiece);

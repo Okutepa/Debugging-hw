@@ -29,6 +29,7 @@ function changeBGImage() {
 	puzzleBoard.style.backgroundImage = `url(images/backGround${this.id}.jpg)`;
 
 	// Reset the puzzle board by moving all pieces back to the puzzle pieces container
+
     resetBoard();
 }
 
@@ -57,7 +58,6 @@ function handleDrop(e) {
         // If the drop zone is occupied, log a message
         console.log('Oops! The drop zone is occupied!');
     }
-    // Add any additional comments explaining your approach
 }
 
 function resetBoard() {
@@ -88,4 +88,6 @@ dropZones.forEach(zone => zone.addEventListener("dragover", handleDragOver));
 // add the drop event handling
 dropZones.forEach(zone => zone.addEventListener("drop", handleDrop));
 
+// add the reset event handling
 resetButton.addEventListener("click", resetBoard);
+

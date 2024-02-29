@@ -27,12 +27,9 @@ function changeBGImage() {
 
 	// bug fix #2 should go here. it's at most 3 lines of JS code.
 	puzzleBoard.style.backgroundImage = `url(images/backGround${this.id}.jpg)`;
-<<<<<<< Updated upstream
-=======
 
 	// Reset the puzzle board by moving all pieces back to the puzzle pieces container
     resetBoard();
->>>>>>> Stashed changes
 }
 
 function handleStartDrag() { 
@@ -48,20 +45,6 @@ function handleDragOver(e) {
 	console.log('dragged over me'); 
 }
 
-<<<<<<< Updated upstream
-function handleDrop(e) { 
-	e.preventDefault();
-	console.log('dropped something on me');
-	// bug fix #1 should go here, and it's at most 3 lines of JS code
-	if (this.children.length > 0) {
-	// Move the existing piece back to the puzzle pieces container
-	puzzleBoard.appendChild(this.children[0]);
-	}
-	// this line is going to move the dragged piece from the left side of the board
-	// into whatever drop zone we choose. appendChild means "add element to the container"
-	this.appendChild(draggedPiece);
-}
-=======
 function handleDrop(e) {
     e.preventDefault();
     console.log('dropped something on me');
@@ -85,7 +68,6 @@ function resetBoard() {
     puzzlePieces.forEach(piece => document.querySelector(".puzzle-pieces").appendChild(piece));
 }
 
->>>>>>> Stashed changes
 // step 2
 // event handling always goes at the bottom => 
 // how do we want users to interact with our app
@@ -104,10 +86,6 @@ puzzlePieces.forEach(piece => piece.addEventListener("dragstart", handleStartDra
 dropZones.forEach(zone => zone.addEventListener("dragover", handleDragOver));
 
 // add the drop event handling
-<<<<<<< Updated upstream
-dropZones.forEach(zone => zone.addEventListener("drop", handleDrop));
-=======
 dropZones.forEach(zone => zone.addEventListener("drop", handleDrop));
 
 resetButton.addEventListener("click", resetBoard);
->>>>>>> Stashed changes

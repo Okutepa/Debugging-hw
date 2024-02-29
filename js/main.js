@@ -11,11 +11,10 @@ let theButtons = document.querySelectorAll("#buttonHolder img"),
 	puzzleBoard = document.querySelector(".puzzle-board"),
 	puzzlePieces = document.querySelectorAll(".puzzle-pieces img"),
 	dropZones = document.querySelectorAll('.drop-zone'),
+	resetButton = document.querySelector("#resetBut"),
 	// store the dragged piece in a global variable
 	// because we need it in the handleDrop function
 	draggedPiece;
-
-let resetButton = document.querySelector("#resetBut");
 
 // step 3
 // functionality always goes in the middle -> how do we want
@@ -30,7 +29,8 @@ function changeBGImage() {
 	puzzleBoard.style.backgroundImage = `url(images/backGround${this.id}.jpg)`;
 
 	// Reset the puzzle board by moving all pieces back to the puzzle pieces container
-    resetPuzzleBoard();
+
+    resetBoard();
 }
 
 function handleStartDrag() { 
@@ -50,17 +50,17 @@ function handleDrop(e) {
     e.preventDefault();
     console.log('dropped something on me');
 
-    // Check if the drop zone already contains a piece
-    if (this.children.length > 0) {
-        // Move the existing piece back to the puzzle pieces container
-        puzzleBoard.appendChild(this.children[0]);
+    // Check if the drop zone already contains a puzzle piece
+    if (this.children.length === 0) {
+        // If the drop zone is empty, move the dragged piece into it
+        this.appendChild(draggedPiece);
+    } else {
+        // If the drop zone is occupied, log a message
+        console.log('Oops! The drop zone is occupied!');
     }
-
-    // Move the dragged piece into the drop zone
-    this.appendChild(draggedPiece);
 }
 
-function resetPuzzleBoard() {
+function resetBoard() {
     // Move all pieces back to the puzzle pieces container
     puzzlePieces.forEach(piece => puzzleBoard.appendChild(piece));
 
@@ -88,4 +88,6 @@ dropZones.forEach(zone => zone.addEventListener("dragover", handleDragOver));
 // add the drop event handling
 dropZones.forEach(zone => zone.addEventListener("drop", handleDrop));
 
-resetButton.addEventListener("click", resetPuzzleBoard);
+// add the reset event handling
+resetButton.addEventListener("click", resetBoard);
+
